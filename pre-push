@@ -1,0 +1,13 @@
+#!/bin/sh
+
+commitList=$(git rev-list --all)
+
+for commit in $commitList; do
+	if ! git verify-commit $commit >/dev/null 2>&1; then
+		echo -e "\033[31merror: Коммит $commit не подписан\033[0m"
+		
+		exit 1
+	fi
+done
+
+exit 0
